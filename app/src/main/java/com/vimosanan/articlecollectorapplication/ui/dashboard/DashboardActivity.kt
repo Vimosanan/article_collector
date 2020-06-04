@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,7 +78,7 @@ class DashboardActivity : AppCompatActivity(), ArticleListAdapter.Interaction {
                 }
                 is Result.Error -> {
                     hideProgress()
-                    updateError()
+                    updateError(it.exception.message!!)
                 }
 
             }
@@ -138,8 +139,8 @@ class DashboardActivity : AppCompatActivity(), ArticleListAdapter.Interaction {
         binding.progressLoader.animationView.pauseAnimation()
     }
 
-    private fun updateError() {
-
+    private fun updateError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
 

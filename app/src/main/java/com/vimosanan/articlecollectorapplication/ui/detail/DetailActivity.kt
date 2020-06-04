@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -66,7 +67,7 @@ class DetailActivity : AppCompatActivity() {
                 }
                 is Result.Error -> {
                     hideProgress()
-                    updateError()
+                    updateError(it.exception.message!!)
                 }
             }
         })
@@ -154,7 +155,7 @@ class DetailActivity : AppCompatActivity() {
         binding.progressLoader.animationView.pauseAnimation()
     }
 
-    private fun updateError() {
-
+    private fun updateError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
