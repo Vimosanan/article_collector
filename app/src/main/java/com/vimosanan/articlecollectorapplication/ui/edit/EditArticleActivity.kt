@@ -6,8 +6,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.vimosanan.articlecollectorapplication.R
 import com.vimosanan.articlecollectorapplication.app.ARTICLE
@@ -17,6 +19,7 @@ import com.vimosanan.articlecollectorapplication.databinding.ActivityDetailBindi
 import com.vimosanan.articlecollectorapplication.databinding.ActivityEditArticleBinding
 import com.vimosanan.articlecollectorapplication.service.model.Article
 import com.vimosanan.articlecollectorapplication.ui.ArticleViewModel
+import com.vimosanan.articlecollectorapplication.util.Result
 import kotlinx.android.synthetic.main.activity_edit_article.*
 import javax.inject.Inject
 
@@ -37,6 +40,8 @@ class EditArticleActivity : AppCompatActivity() {
         binding = ActivityEditArticleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showProgress()
+
         // register for view-model
         articleViewModel = ViewModelProvider(
             this,
@@ -48,7 +53,7 @@ class EditArticleActivity : AppCompatActivity() {
         if (article != null) {
             updateView()
         } else {
-            updateError()
+            updateError("Article is not fetched")
         }
 
         initObservers()
@@ -63,6 +68,19 @@ class EditArticleActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             saveArticle()
         }
+
+        articleViewModel.article.observe(this, Observer {
+            when(it) {
+                is Result.Loading -> showProgress()
+                is Result.Success -> {
+                    backToDetailPage(edited = true)
+                }
+                is Result.Error -> {
+                    hideProgress()
+                    updateError(it.exception.message!!)
+                }
+            }
+        })
     }
 
     private fun saveArticle() {
@@ -72,9 +90,10 @@ class EditArticleActivity : AppCompatActivity() {
         if (title.isEmpty() || title.isBlank() || description.isBlank() || description.isEmpty()) {
             showToast("Title, Description cannot be empty!")
         } else {
+            showProgress()
             article?.title = title
             article?.description = description
-            backToDetailPage(edited = true)
+            articleViewModel.saveArticleToDatabase(article!!)
         }
 
     }
@@ -127,10 +146,24 @@ class EditArticleActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
+    private fun showProgress() {
+        binding.progressLoader.constraint.visibility = View.VISIBLE
+        binding.progressLoader.animationView.visibility = View.VISIBLE
+        binding.progressLoader.animationView.playAnimation()
+    }
+
+    private fun hideProgress() {
+        binding.progressLoader.constraint.visibility = View.INVISIBLE
+        binding.progressLoader.constraint.visibility = View.INVISIBLE
+        binding.progressLoader.animationView.pauseAnimation()
+    }
+
     private fun updateView() {
         binding.edtTextTitle.text = SpannableStringBuilder(article?.title ?: DEFAULT_VALUE)
         binding.edtTextDescription.text =
             SpannableStringBuilder(article?.description ?: DEFAULT_VALUE)
+
+        hideProgress()
     }
 
     override fun onBackPressed() {
@@ -141,7 +174,7 @@ class EditArticleActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
-    private fun updateError() {
-
+    private fun updateError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

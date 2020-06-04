@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -34,6 +35,8 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        showProgress()
 
         // register for view-model
         articleViewModel = ViewModelProvider(
@@ -96,6 +99,7 @@ class DetailActivity : AppCompatActivity() {
 
         binding.txtViewDescription.text = this.article?.description ?: DEFAULT_VALUE
 
+        hideProgress()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -139,11 +143,15 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showProgress() {
-
+        binding.progressLoader.constraint.visibility = View.VISIBLE
+        binding.progressLoader.animationView.visibility = View.VISIBLE
+        binding.progressLoader.animationView.playAnimation()
     }
 
     private fun hideProgress() {
-
+        binding.progressLoader.constraint.visibility = View.INVISIBLE
+        binding.progressLoader.constraint.visibility = View.INVISIBLE
+        binding.progressLoader.animationView.pauseAnimation()
     }
 
     private fun updateError() {

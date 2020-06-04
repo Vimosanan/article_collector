@@ -42,6 +42,7 @@ dependencies {
 
     implementation "com.android.support:cardview-v7:$versions.card_view" // card-view
     implementation "androidx.recyclerview:recyclerview:$versions.recycler_view" // recycler-view
+    implementation "com.airbnb.android:lottie:$versions.lottie" // animation
 
     //dagger di
     implementation "com.google.dagger:dagger:$versions.dagger"
@@ -69,4 +70,11 @@ dependencies {
     //coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutine" // testing
+
+    //room database
+    implementation "androidx.room:room-runtime:$versions.room_version"
+    kapt "androidx.room:room-compiler:$versions.room_version"
+    implementation "androidx.room:room-ktx:$versions.room_version" // kotlin extension and coroutine support
+    testImplementation "androidx.room:room-testing:$versions.room_version" // test helpers
 }

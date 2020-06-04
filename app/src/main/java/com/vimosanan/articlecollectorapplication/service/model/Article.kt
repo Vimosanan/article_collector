@@ -2,6 +2,9 @@ package com.vimosanan.articlecollectorapplication.service.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.sql.Timestamp
 
@@ -20,15 +23,25 @@ import java.sql.Timestamp
     }
 */
 
+@Entity(tableName = "articles")
 data class Article (
+    @PrimaryKey
     val id: Int,
+
     var title: String?,
+
+    @ColumnInfo(name = "last_update")
     @SerializedName("last_update")
     val lastUpdate: String?,
+
+    @ColumnInfo(name = "short_description")
     @SerializedName("short_description")
     val shortDescription: String?,
+
+    @ColumnInfo(name = "avatar_url")
     @SerializedName("avatar")
     val avatarUrl: String?,
+
     @SerializedName("text")
     var description: String?
 ): Parcelable {

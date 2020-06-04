@@ -99,7 +99,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-
-
-
+    <include
+        android:id="@+id/progress_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/in_progress_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,13 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vimosanan.articlecollectorapplication.service.model.Article
 import com.vimosanan.articlecollectorapplication.service.repository.ArticleRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import com.vimosanan.articlecollectorapplication.util.Result
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class ArticleViewModel @Inject constructor(private val repo: ArticleRepository): ViewModel() {
+class ArticleViewModel @Inject constructor(private val repo: ArticleRepository) : ViewModel() {
 
     private val _articles = MutableLiveData<Result<List<Article>>>()
     val articles: LiveData<Result<List<Article>>>
@@ -26,6 +24,8 @@ class ArticleViewModel @Inject constructor(private val repo: ArticleRepository):
     fun loadAllArticles() {
         viewModelScope.launch {
             _articles.postValue(Result.Loading)
+
+            delay(3_000) // purposefully delayed to show loader
             withContext(Dispatchers.IO) {
                 _articles.postValue(repo.loadAllArticlesFromRemote())
             }
@@ -36,10 +36,20 @@ class ArticleViewModel @Inject constructor(private val repo: ArticleRepository):
         viewModelScope.launch {
             viewModelScope.launch {
                 _article.postValue(Result.Loading)
+
+                delay(3_000) // purposefully delayed to show loader
                 withContext(Dispatchers.IO) {
                     _article.postValue(repo.loadDescriptionFromRemote(id))
                 }
             }
         }
     }
+
+    fun saveArticleToDatabase(article: Article) {
+        CoroutineScope(Dispatchers.IO).launch {
+            _article.postValue(repo.updateArticle(article))
+        }
+    }
+
+
 }

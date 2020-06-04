@@ -8,6 +8,7 @@
 
     <string name="app.detail.edit.btn.save">Save</string>
     <string name="app.detail.edit.txtView.cancel">Cancel</string>
+    <string name="app.detail.edit.txtView.edit">Edit Article</string>
 
 
     <!--test-data-->

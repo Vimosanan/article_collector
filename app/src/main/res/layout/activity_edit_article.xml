@@ -25,11 +25,11 @@
             android:maxLines="1"
             android:textColor="@color/colorWhite"
             android:textSize="24sp"
+            android:text="@string/app.detail.edit.txtView.edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/txtViewCancel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/app_test_article_title" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtViewCancel"
@@ -97,5 +97,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
+    <include
+        android:id="@+id/progress_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/in_progress_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

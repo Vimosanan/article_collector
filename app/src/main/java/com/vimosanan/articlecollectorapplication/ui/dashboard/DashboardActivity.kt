@@ -127,11 +127,15 @@ class DashboardActivity : AppCompatActivity(), ArticleListAdapter.Interaction {
     }
 
     private fun showProgress() {
-
+        binding.progressLoader.constraint.visibility = View.VISIBLE
+        binding.progressLoader.animationView.visibility = View.VISIBLE
+        binding.progressLoader.animationView.playAnimation()
     }
 
     private fun hideProgress() {
-
+        binding.progressLoader.constraint.visibility = View.INVISIBLE
+        binding.progressLoader.constraint.visibility = View.INVISIBLE
+        binding.progressLoader.animationView.pauseAnimation()
     }
 
     private fun updateError() {
