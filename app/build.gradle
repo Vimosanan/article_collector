@@ -49,4 +49,17 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit2"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit2"
 
+    //viewmodel and lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_version"
+
+    //glide library for image handling
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "com.github.bumptech.glide:annotations:$versions.glide"
+    kapt "com.github.bumptech.glide:compiler:$versions.glide"
+
+    //coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine"
 }
