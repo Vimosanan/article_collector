@@ -5,3 +5,8 @@ var IS_CONNECTED: Boolean = false
 
 
 val ARTICLE_ID: String get() = "ARTICLE_ID"
+
+
+
+//default value
+val DEFAULT_VALUE : String get() = "UNKNOWN"

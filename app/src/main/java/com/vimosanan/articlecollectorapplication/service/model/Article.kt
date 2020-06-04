@@ -1,6 +1,7 @@
 package com.vimosanan.articlecollectorapplication.service.model
 
 import com.google.gson.annotations.SerializedName
+import java.sql.Timestamp
 
 /*
     {
@@ -29,3 +30,7 @@ data class Article (
     @SerializedName("text")
     val description: String?
 )
+
+fun toStringDate(timestamp: String): String {
+    return "2020-02-17"
+}

@@ -6,8 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.vimosanan.articlecollectorapplication.R
+import com.vimosanan.articlecollectorapplication.app.DEFAULT_VALUE
 import com.vimosanan.articlecollectorapplication.service.model.Article
+import com.vimosanan.articlecollectorapplication.service.model.toStringDate
+import kotlinx.android.synthetic.main.cardview_article.view.*
 
 class ArticleListAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -56,9 +60,24 @@ class ArticleListAdapter(private val interaction: Interaction? = null) :
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Article) = with(itemView) {
+        fun bind(article: Article) = with(itemView) {
+            itemView.txtViewTitle.text = article.title ?: DEFAULT_VALUE
+            itemView.txtViewDate.text = if (article.lastUpdate != null) {
+                toStringDate(article.lastUpdate)
+            } else {
+                DEFAULT_VALUE
+            }
+            itemView.txtViewDescription.text = article.shortDescription ?: DEFAULT_VALUE
+
+            Glide.with(this)
+                .load(article.avatarUrl)
+                .circleCrop()
+                .placeholder(R.drawable.test_avatar)
+                .error(R.drawable.test_avatar)
+                .into(itemView.imgViewAvatar)
+
             itemView.setOnClickListener {
-                interaction?.onItemSelected(adapterPosition, item)
+                interaction?.onItemSelected(adapterPosition, article)
             }
         }
     }
