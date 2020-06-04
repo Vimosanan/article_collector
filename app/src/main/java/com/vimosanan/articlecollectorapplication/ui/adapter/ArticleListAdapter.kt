@@ -11,7 +11,7 @@ import com.vimosanan.articlecollectorapplication.R
 import com.vimosanan.articlecollectorapplication.app.DEFAULT_VALUE
 import com.vimosanan.articlecollectorapplication.service.model.Article
 import com.vimosanan.articlecollectorapplication.service.model.toStringDate
-import kotlinx.android.synthetic.main.cardview_article.view.*
+import kotlinx.android.synthetic.main.card_view_article.view.*
 
 class ArticleListAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -31,7 +31,7 @@ class ArticleListAdapter(private val interaction: Interaction? = null) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ArticleViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.cardview_article,
+                R.layout.card_view_article,
                 parent,
                 false
             ), interaction

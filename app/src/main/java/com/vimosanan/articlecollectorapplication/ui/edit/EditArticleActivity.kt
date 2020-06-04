@@ -1,18 +1,20 @@
-package com.vimosanan.articlecollectorapplication.ui.detail
+package com.vimosanan.articlecollectorapplication.ui.edit
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.vimosanan.articlecollectorapplication.app.ArticleCollectionApplication
 import com.vimosanan.articlecollectorapplication.databinding.ActivityDetailBinding
+import com.vimosanan.articlecollectorapplication.databinding.ActivityEditArticleBinding
 import com.vimosanan.articlecollectorapplication.ui.ArticleViewModel
 import javax.inject.Inject
 
-class DetailActivity : AppCompatActivity() {
+class EditArticleActivity : AppCompatActivity() {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var binding: ActivityDetailBinding
+    private lateinit var binding: ActivityEditArticleBinding
     private lateinit var articleViewModel: ArticleViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
         appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailBinding.inflate(layoutInflater)
+        binding = ActivityEditArticleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // register for view-model
@@ -31,6 +33,7 @@ class DetailActivity : AppCompatActivity() {
 
         initObservers()
     }
+
 
     private fun initObservers() {
 
