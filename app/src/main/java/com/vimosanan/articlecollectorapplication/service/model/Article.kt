@@ -1,5 +1,7 @@
 package com.vimosanan.articlecollectorapplication.service.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.sql.Timestamp
 
@@ -20,7 +22,7 @@ import java.sql.Timestamp
 
 data class Article (
     val id: Int,
-    val title: String?,
+    var title: String?,
     @SerializedName("last_update")
     val lastUpdate: String?,
     @SerializedName("short_description")
@@ -28,8 +30,41 @@ data class Article (
     @SerializedName("avatar")
     val avatarUrl: String?,
     @SerializedName("text")
-    val description: String?
-)
+    var description: String?
+): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(title)
+        parcel.writeString(lastUpdate)
+        parcel.writeString(shortDescription)
+        parcel.writeString(avatarUrl)
+        parcel.writeString(description)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Article> {
+        override fun createFromParcel(parcel: Parcel): Article {
+            return Article(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Article?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+}
 
 fun toStringDate(timestamp: String): String {
     return "2020-02-17"

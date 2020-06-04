@@ -7,11 +7,11 @@ import retrofit2.http.Path
 
 interface ApiInterface {
     @GET("/article")
-    fun getAllArticles(
+    suspend fun getAllArticles(
     ): Response<List<Article>>
 
     @GET("/article/{id}")
-    fun getArticleDetail(
+    suspend fun getArticleDetail(
         @Path("id") id: Int
     ): Response<Article>
 }
